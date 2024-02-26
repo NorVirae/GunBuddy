@@ -8,8 +8,9 @@ public class PlayerMovement : MonoBehaviour
     private float velocity = 0.0f;
     private float lastButtonPressedTime;
     private float lastGroundTime;
+
+    [SerializeField]
     private float jumpGracePeriod = 3f;
-    public float jumpGrace = 3f;
 
     public float jumpHeight = 10f;
     public float maximumSpeed = 6f;
@@ -47,22 +48,13 @@ public class PlayerMovement : MonoBehaviour
         if (characterController.isGrounded)
         {
             lastGroundTime = Time.time;
-            
+
         }
 
 
         if (Input.GetButtonDown("Jump"))
         {
             lastButtonPressedTime = Time.time;
-            if (firstFlag)
-            {
-                jumpGracePeriod = -4f;
-            }
-            else
-            {
-                jumpGracePeriod = jumpGrace;
-
-            }
         }
 
         if (Time.time - lastGroundTime <= jumpGracePeriod)
@@ -75,19 +67,29 @@ public class PlayerMovement : MonoBehaviour
         }
 
         ySpeed += Physics.gravity.y * Time.deltaTime;
-        Debug.Log(Physics.gravity.y + " GRAVITY");
-        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
 
+        Quaternion angleAxis = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up);
+        movementDirection = angleAxis * movementDirection;
         Vector3 speed = movementDirection * maximumSpeed;
         speed.y = ySpeed * Time.deltaTime;
-        characterController.Move(speed);
-
-        if (movementDirection != Vector3.zero)
-        { 
-            Debug.Log("ROTATING! " + movementDirection);
-            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        if (characterController.enabled)
+        {
+            characterController.Move(speed);
         }
+        else
+        {
+            characterController.enabled = true;
+            characterController.Move(speed);
+
+        }
+
+        //if (movementDirection != Vector3.zero)
+        //{
+        Debug.Log(angleAxis + " Rotation EULER " + cameraTransform.rotation.eulerAngles.y + " Camera y ");
+
+        Quaternion toRotation = Quaternion.LookRotation(angleAxis  * new Vector3(0.1f,0,0.1f), Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, angleAxis, rotationSpeed * Time.deltaTime);
+        //}
 
         firstFlag = false;
     }

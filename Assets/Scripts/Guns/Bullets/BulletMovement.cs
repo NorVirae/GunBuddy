@@ -7,6 +7,17 @@ public class BulletMovement : MonoBehaviour
     [SerializeField]
     float forceMagnitude = 10f;
 
+    private float startTime;
+
+    [SerializeField]
+    private ParticleSystem GunTrails;
+
+    [SerializeField]
+    private ParticleSystem DeadParticle;
+
+    private ParticleSystem trail;
+    private ParticleSystem DeadPart;
+
 
     Rigidbody rigidBody;
     // Start is called before the first frame update
@@ -15,12 +26,19 @@ public class BulletMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         Vector3 forceDirection = transform.forward;
         rigidBody.AddForce(forceDirection * forceMagnitude);
+        if (GunTrails != null)
+        {
+            trail = Instantiate(GunTrails, transform.position, Quaternion.identity);
+        }
+        startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        trail.transform.position = transform.position;
+        trail.transform.rotation = transform.rotation;
+
     }
 
 
@@ -33,5 +51,8 @@ public class BulletMovement : MonoBehaviour
 
         //Destroy(collision.gameObject);
         Destroy(gameObject);
+
+        Destroy(trail.gameObject);
+        Destroy(DeadPart.gameObject);
     }
 }

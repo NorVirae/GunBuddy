@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 2551258786397732089}
   - component: {fileID: 6354807691124723172}
   - component: {fileID: 1851441501074780295}
+  - component: {fileID: 5230116399205757179}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -212,8 +213,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.78
-  m_Height: 2
+  m_Radius: 0.65
+  m_Height: 2.34
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &1851441501074780295
@@ -242,6 +243,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5230116399205757179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7610272362861601096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1ffdb153a155a43b0a77484b12bc54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadParticle: {fileID: 5958478975733516079, guid: 24fa55c4f1386e04ea2800527f88c4e1, type: 3}
 --- !u!1 &7635543405650088418
 GameObject:
   m_ObjectHideFlags: 0

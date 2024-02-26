@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class PistolGun : MonoBehaviour
 {
     [SerializeField]
     private GameObject projectileSpawnPoint;
